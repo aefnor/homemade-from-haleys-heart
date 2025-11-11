@@ -1,5 +1,13 @@
+import { useState } from 'react'
 import { Minus, Plus, ShoppingBag, Trash2, X } from 'lucide-react'
 import { useCart } from '../context/CartContext'
+import { getStripe } from '../lib/stripe'
+
+type StripeCheckoutClient = {
+  redirectToCheckout: (options: { sessionId: string }) => Promise<{
+    error?: { message?: string }
+  }>
+}
 
 interface CartSidebarProps {
   isOpen: boolean
@@ -15,6 +23,78 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
     cartCount,
     clearCart,
   } = useCart()
+  const [isCheckingOut, setIsCheckingOut] = useState(false)
+
+  const handleCheckout = async () => {
+    if (isCheckingOut) {
+      return
+    }
+
+    setIsCheckingOut(true)
+
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: cartItems.map(({ id, name, price, quantity }) => ({
+            id,
+            name,
+            price,
+            quantity,
+          })),
+          successUrl: `${window.location.origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
+          cancelUrl: `${window.location.origin}/checkout-cancel`,
+        }),
+      })
+
+      const payload = await response.json().catch(() => null)
+
+      if (!response.ok || !payload) {
+        throw new Error(payload?.error ?? 'Failed to start checkout.')
+      }
+
+      const { sessionId, url } = payload as {
+        sessionId?: string
+        url?: string
+      }
+
+      if (url) {
+        window.location.href = url
+        return
+      }
+
+      const stripe = await getStripe()
+      if (!stripe) {
+        throw new Error('Stripe failed to initialize.')
+      }
+
+      if (!sessionId) {
+        throw new Error('Checkout session is missing an id.')
+      }
+
+      const { error } = await (
+        stripe as unknown as StripeCheckoutClient
+      ).redirectToCheckout({
+        sessionId,
+      })
+
+      if (error) {
+        throw error
+      }
+    } catch (error) {
+      console.error('Checkout error:', error)
+      const message =
+        error instanceof Error && error.message
+          ? error.message
+          : 'We were unable to start the checkout. Please try again.'
+      alert(message)
+    } finally {
+      setIsCheckingOut(false)
+    }
+  }
 
   return (
     <>
@@ -181,15 +261,13 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
               </span>
             </div>
             <button
-              className="w-full py-4 rounded-full font-semibold text-white hover:opacity-90 transition-opacity"
+              className="w-full py-4 rounded-full font-semibold text-white hover:opacity-90 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
               style={{ backgroundColor: 'var(--color-secondary)' }}
-              onClick={() => {
-                alert(
-                  'Checkout functionality coming soon! Stripe integration pending.',
-                )
-              }}
+              onClick={handleCheckout}
+              disabled={isCheckingOut}
+              aria-disabled={isCheckingOut}
             >
-              Proceed to Checkout
+              {isCheckingOut ? 'Starting checkout…' : 'Proceed to Checkout'}
             </button>
             <button
               onClick={clearCart}
