@@ -97,7 +97,7 @@ function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Custom Ordering */}
             <div
-              className="rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:scale-105"
+              className="rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:scale-105 flex flex-col h-full"
               style={{ backgroundColor: 'var(--color-bg-light)' }}
             >
               <div
@@ -119,14 +119,14 @@ function HomePage() {
                 Starting at $10
               </p>
               <p
-                className="text-center mb-6"
+                className="text-center mb-6 flex-1"
                 style={{ color: 'var(--color-text-light)' }}
               >
                 Snag a spot on our weekly ordering list for whatever delicious
                 treats your heart desires. Every item made with our beautiful
                 sourdough starter.
               </p>
-              <div className="text-center">
+              <div className="text-center mt-auto">
                 <Link
                   to="/services"
                   className="inline-block px-6 py-3 rounded-full font-semibold text-white hover:opacity-90 transition-opacity"
@@ -139,7 +139,7 @@ function HomePage() {
 
             {/* Sourdough Classes */}
             <div
-              className="rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:scale-105"
+              className="rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:scale-105 flex flex-col h-full"
               style={{ backgroundColor: 'var(--color-bg-light)' }}
             >
               <div
@@ -161,13 +161,13 @@ function HomePage() {
                 Starting at $50
               </p>
               <p
-                className="text-center mb-6"
+                className="text-center mb-6 flex-1"
                 style={{ color: 'var(--color-text-light)' }}
               >
                 In-home "sip and sourdough" courses or aesthetic studio classes.
                 Learn this precious craft in its simplest, most enjoyable form!
               </p>
-              <div className="text-center">
+              <div className="text-center mt-auto">
                 <Link
                   to="/services"
                   className="inline-block px-6 py-3 rounded-full font-semibold text-white hover:opacity-90 transition-opacity"
@@ -180,7 +180,7 @@ function HomePage() {
 
             {/* Farmer's Markets */}
             <div
-              className="rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:scale-105"
+              className="rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:scale-105 flex flex-col h-full"
               style={{ backgroundColor: 'var(--color-bg-light)' }}
             >
               <div
@@ -202,13 +202,13 @@ function HomePage() {
                 FREE to Visit
               </p>
               <p
-                className="text-center mb-6"
+                className="text-center mb-6 flex-1"
                 style={{ color: 'var(--color-text-light)' }}
               >
                 Come visit us at incredible local markets in the valley! Follow
                 us on social media for the most up-to-date locations.
               </p>
-              <div className="text-center">
+              <div className="text-center mt-auto">
                 <a
                   href="https://www.instagram.com/homemade_from_haleys_heart/"
                   target="_blank"

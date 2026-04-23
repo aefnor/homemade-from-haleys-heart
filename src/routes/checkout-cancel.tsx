@@ -18,7 +18,7 @@ function CheckoutCancelPage() {
           Checkout canceled
         </h1>
         <p style={{ color: 'var(--color-text-light)' }}>
-          No worries—your cart is still saved if you&apos;d like to give it
+          No worries, your cart is still saved if you&apos;d like to give it
           another try.
         </p>
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">

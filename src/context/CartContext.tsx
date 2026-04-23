@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 
 export interface CartItem {
@@ -20,9 +20,43 @@ interface CartContextType {
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
+const CART_STORAGE_KEY = 'haleys-heart-cart'
+
+function readStoredCartItems() {
+  if (typeof window === 'undefined') {
+    return []
+  }
+
+  try {
+    const storedValue = window.localStorage.getItem(CART_STORAGE_KEY)
+    if (!storedValue) {
+      return []
+    }
+
+    const parsed = JSON.parse(storedValue)
+    if (!Array.isArray(parsed)) {
+      return []
+    }
+
+    return parsed.filter(
+      (item): item is CartItem =>
+        typeof item?.id === 'number' &&
+        typeof item?.name === 'string' &&
+        typeof item?.price === 'number' &&
+        typeof item?.image === 'string' &&
+        typeof item?.quantity === 'number',
+    )
+  } catch {
+    return []
+  }
+}
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [cartItems, setCartItems] = useState<Array<CartItem>>([])
+  const [cartItems, setCartItems] = useState<Array<CartItem>>(readStoredCartItems)
+
+  useEffect(() => {
+    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems))
+  }, [cartItems])
 
   const addToCart = (item: Omit<CartItem, 'quantity'>) => {
     setCartItems((prevItems) => {

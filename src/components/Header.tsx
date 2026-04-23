@@ -1,9 +1,43 @@
 import { Link } from '@tanstack/react-router'
-
 import { useState } from 'react'
-import { Heart, Home, Menu, ShoppingCart, X } from 'lucide-react'
+import {
+  Heart,
+  Home,
+  Instagram,
+  Mail,
+  Menu,
+  ShoppingCart,
+  User,
+  X,
+} from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import CartSidebar from './CartSidebar'
+
+function FacebookIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={className}
+      fill="currentColor"
+    >
+      <path d="M13.5 21v-7h2.3l.4-2.7h-2.7V9.6c0-.8.3-1.6 1.7-1.6h1.3V5.7c-.2 0-.9-.1-1.9-.1-2 0-3.4 1.2-3.4 3.6v2.1H9v2.7h2.3v7h2.2Z" />
+    </svg>
+  )
+}
+
+function TikTokIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={className}
+      fill="currentColor"
+    >
+      <path d="M14.7 3c.2 1.7 1.2 3.2 2.8 4.1 1 .6 2.1.9 3.3.9v2.8a8.9 8.9 0 0 1-3.8-.9v5.6c0 3.4-2.8 6.2-6.2 6.2s-6.2-2.8-6.2-6.2 2.8-6.2 6.2-6.2c.3 0 .6 0 .9.1v2.9a3.4 3.4 0 0 0-.9-.1 3.4 3.4 0 1 0 3.4 3.4V3h2.5Z" />
+    </svg>
+  )
+}
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -38,9 +72,9 @@ export default function Header() {
                 className="animate-pulse"
               />
               <span className="hidden sm:inline">
-                Homemade from Haley's Heart
+                Homemade from Haley&apos;s Heart
               </span>
-              <span className="sm:hidden">Haley's Heart</span>
+              <span className="sm:hidden">Haley&apos;s Heart</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -170,7 +204,7 @@ export default function Header() {
             className="flex items-center gap-3 p-4 rounded-lg hover:bg-[#fef8f3] transition-colors mb-2 font-medium"
             style={{ color: 'var(--color-text-dark)' }}
           >
-            <span className="text-xl">👩‍🍳</span>
+            <User size={20} />
             <span>About Haley</span>
           </Link>
 
@@ -180,7 +214,7 @@ export default function Header() {
             className="flex items-center gap-3 p-4 rounded-lg hover:bg-[#fef8f3] transition-colors mb-2 font-medium"
             style={{ color: 'var(--color-text-dark)' }}
           >
-            <span className="text-xl">📧</span>
+            <Mail size={20} />
             <span>Contact</span>
           </Link>
         </nav>
@@ -201,28 +235,40 @@ export default function Header() {
               href="https://www.instagram.com/homemade_from_haleys_heart/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-2xl hover:scale-110 transition-transform"
+              className="inline-flex items-center justify-center rounded-full p-2 hover:scale-110 transition-transform"
               aria-label="Instagram"
+              style={{
+                color: 'var(--color-secondary)',
+                backgroundColor: 'rgba(244, 162, 97, 0.15)',
+              }}
             >
-              📷
+              <Instagram size={22} />
             </a>
             <a
               href="https://www.facebook.com/haley.johnston.1401"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-2xl hover:scale-110 transition-transform"
+              className="inline-flex items-center justify-center rounded-full px-3 hover:scale-110 transition-transform"
               aria-label="Facebook"
+              style={{
+                color: 'var(--color-secondary)',
+                backgroundColor: 'rgba(244, 162, 97, 0.15)',
+              }}
             >
-              📘
+              <FacebookIcon className="h-[22px] w-[22px]" />
             </a>
             <a
-              href="https://www.tiktok.com/@14_haleyj"
+              href="https://www.tiktok.com/@14_haleyj?is_from_webapp=1&sender_device=pc"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-2xl hover:scale-110 transition-transform"
+              className="inline-flex items-center justify-center rounded-full px-3 hover:scale-110 transition-transform"
               aria-label="TikTok"
+              style={{
+                color: 'var(--color-secondary)',
+                backgroundColor: 'rgba(244, 162, 97, 0.15)',
+              }}
             >
-              🎵
+              <TikTokIcon className="h-[20px] w-[20px]" />
             </a>
           </div>
         </div>

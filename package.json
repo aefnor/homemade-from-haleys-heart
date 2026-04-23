@@ -8,6 +8,7 @@
     "build": "vite build && tsc",
     "serve": "vite preview",
     "test": "vitest run",
+    "test:stripe": "vitest run server/stripe.integration.test.mjs",
     "lint": "eslint",
     "format": "prettier",
     "check": "prettier --write . && eslint --fix"
@@ -16,16 +17,18 @@
     "@stripe/stripe-js": "^8.2.0",
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-devtools": "^0.7.0",
-    "@tanstack/react-router": "^1.132.0",
-    "@tanstack/react-router-devtools": "^1.132.0",
-    "@tanstack/router-plugin": "^1.132.0",
+    "@tanstack/react-router": "1.168.10",
+    "@tanstack/react-router-devtools": "1.166.11",
+    "@tanstack/router-plugin": "1.166.11",
+    "@tanstack/router-core": "^1.168.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "lucide-react": "^0.545.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "stripe": "^19.1.0",
+    "stripe": "^20.4.1",
+    "solid-js": "^1.9.7",
     "tailwindcss": "^4.0.6"
   },
   "devDependencies": {
@@ -36,11 +39,14 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.4",
+    "csstype": "^3.1.3",
+    "eslint": "^9.0.0",
     "jsdom": "^27.0.0",
     "prettier": "^3.5.3",
     "typescript": "^5.7.2",
     "vite": "^7.1.7",
     "vitest": "^3.0.5",
     "web-vitals": "^5.1.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

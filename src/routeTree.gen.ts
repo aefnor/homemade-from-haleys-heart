@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as SeasonalRouteImport } from './routes/seasonal'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CheckoutSuccessRouteImport } from './routes/checkout-success'
 import { Route as CheckoutCancelRouteImport } from './routes/checkout-cancel'
@@ -25,6 +26,11 @@ const ShopRoute = ShopRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SeasonalRoute = SeasonalRouteImport.update({
+  id: '/seasonal',
+  path: '/seasonal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/checkout-cancel': typeof CheckoutCancelRoute
   '/checkout-success': typeof CheckoutSuccessRoute
   '/contact': typeof ContactRoute
+  '/seasonal': typeof SeasonalRoute
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/checkout-cancel': typeof CheckoutCancelRoute
   '/checkout-success': typeof CheckoutSuccessRoute
   '/contact': typeof ContactRoute
+  '/seasonal': typeof SeasonalRoute
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/checkout-cancel': typeof CheckoutCancelRoute
   '/checkout-success': typeof CheckoutSuccessRoute
   '/contact': typeof ContactRoute
+  '/seasonal': typeof SeasonalRoute
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/checkout-cancel'
     | '/checkout-success'
     | '/contact'
+    | '/seasonal'
     | '/services'
     | '/shop'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/checkout-cancel'
     | '/checkout-success'
     | '/contact'
+    | '/seasonal'
     | '/services'
     | '/shop'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/checkout-cancel'
     | '/checkout-success'
     | '/contact'
+    | '/seasonal'
     | '/services'
     | '/shop'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   CheckoutCancelRoute: typeof CheckoutCancelRoute
   CheckoutSuccessRoute: typeof CheckoutSuccessRoute
   ContactRoute: typeof ContactRoute
+  SeasonalRoute: typeof SeasonalRoute
   ServicesRoute: typeof ServicesRoute
   ShopRoute: typeof ShopRoute
 }
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seasonal': {
+      id: '/seasonal'
+      path: '/seasonal'
+      fullPath: '/seasonal'
+      preLoaderRoute: typeof SeasonalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   CheckoutCancelRoute: CheckoutCancelRoute,
   CheckoutSuccessRoute: CheckoutSuccessRoute,
   ContactRoute: ContactRoute,
+  SeasonalRoute: SeasonalRoute,
   ServicesRoute: ServicesRoute,
   ShopRoute: ShopRoute,
 }

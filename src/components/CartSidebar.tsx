@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Minus, Plus, ShoppingBag, Trash2, X } from 'lucide-react'
 import { useCart } from '../context/CartContext'
+import { apiUrl } from '../lib/api'
 import { getStripe } from '../lib/stripe'
 
 type StripeCheckoutClient = {
@@ -33,16 +34,14 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
     setIsCheckingOut(true)
 
     try {
-      const response = await fetch('/api/create-checkout-session', {
+      const response = await fetch(apiUrl('/api/create-checkout-session'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          items: cartItems.map(({ id, name, price, quantity }) => ({
+          items: cartItems.map(({ id, quantity }) => ({
             id,
-            name,
-            price,
             quantity,
           })),
           successUrl: `${window.location.origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
