@@ -35,6 +35,25 @@ code {
     monospace;
 }
 
+.pickup-banner-blink {
+  animation: pickup-banner-blink 3.5s ease-in-out infinite;
+}
+
+@keyframes pickup-banner-blink {
+  0%,
+  100% {
+    background-color: #ffffff;
+    color: var(--color-heart);
+    border-color: rgba(255, 107, 157, 0.4);
+  }
+
+  50% {
+    background-color: var(--color-heart);
+    color: #ffffff;
+    border-color: var(--color-heart);
+  }
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;

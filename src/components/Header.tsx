@@ -11,6 +11,7 @@ import {
   X,
 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
+import { headerBannerText } from '../lib/headerBanner'
 import CartSidebar from './CartSidebar'
 
 function FacebookIcon({ className = '' }: { className?: string }) {
@@ -116,20 +117,27 @@ export default function Header() {
               </Link>
             </nav>
 
-            {/* Cart Icon */}
-            <button
-              onClick={() => setIsCartOpen(true)}
-              className="p-2 rounded-lg hover:bg-[#fef8f3] transition-colors relative"
-              aria-label="Shopping cart"
-              style={{ color: 'var(--color-secondary)' }}
-            >
-              <ShoppingCart size={24} />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#ff6b9d] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartCount}
-                </span>
+            <div className="flex items-center justify-end gap-2 sm:gap-3">
+              {/* Cart Icon */}
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="p-2 rounded-lg hover:bg-[#fef8f3] transition-colors relative"
+                aria-label="Shopping cart"
+                style={{ color: 'var(--color-secondary)' }}
+              >
+                <ShoppingCart size={24} />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-[#ff6b9d] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+              {headerBannerText && (
+                <div className="pickup-banner-blink rounded-full border px-2.5 py-1 text-center text-[9px] font-bold uppercase leading-tight tracking-[0.14em] shadow-sm sm:px-3 sm:text-[11px]">
+                  {headerBannerText}
+                </div>
               )}
-            </button>
+            </div>
           </div>
         </div>
       </header>
