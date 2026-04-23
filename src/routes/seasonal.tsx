@@ -120,7 +120,7 @@ function SeasonalPage() {
             {seasonalContent.products.map((product) => (
               <div
                 key={product.id}
-                className="rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all hover:scale-[1.02] bg-white"
+                className="rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all hover:scale-[1.02] bg-white flex flex-col h-full"
               >
                 <div className="relative h-60 overflow-hidden bg-gray-100">
                   {product.image ? (
@@ -133,7 +133,7 @@ function SeasonalPage() {
                     <div className="w-full h-full" />
                   )}
                 </div>
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-1">
                   <h3
                     className="text-xl font-semibold mb-2"
                     style={{ color: 'var(--color-text-dark)' }}
@@ -147,7 +147,7 @@ function SeasonalPage() {
                     ${product.price}
                   </p>
                   <p
-                    className="mb-6 text-sm"
+                    className="mb-6 text-sm flex-1"
                     style={{ color: 'var(--color-text-light)' }}
                   >
                     {product.description}
@@ -161,7 +161,7 @@ function SeasonalPage() {
                         image: product.image ?? '',
                       })
                     }
-                    className="w-full py-3 rounded-full font-semibold text-white hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                    className="mt-auto w-full py-3 rounded-full font-semibold text-white hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
                     style={{ backgroundColor: seasonalContent.accent }}
                   >
                     <ShoppingCart size={18} />
