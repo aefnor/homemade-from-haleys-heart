@@ -8,12 +8,13 @@ import {
   createStripeWebhookHandler,
 } from './checkout.mjs'
 import { createRateLimit, requestLogger } from './middleware.mjs'
-import { productsById } from './products.mjs'
+import { getProductsByIdForStripeMode, resolveStripeMode } from './products.mjs'
 
 dotenv.config()
 
 const {
   STRIPE_SECRET_KEY,
+  STRIPE_MODE,
   STRIPE_WEBHOOK_SECRET,
   CLIENT_ORIGIN = 'http://localhost:3000',
   STRIPE_SUCCESS_URL,
@@ -27,6 +28,11 @@ if (!STRIPE_SECRET_KEY) {
 }
 
 const stripe = new Stripe(STRIPE_SECRET_KEY)
+const stripeMode = resolveStripeMode({
+  stripeMode: STRIPE_MODE,
+  stripeSecretKey: STRIPE_SECRET_KEY,
+})
+const productsById = getProductsByIdForStripeMode(stripeMode, process.env)
 
 const app = express()
 
@@ -80,7 +86,7 @@ app.get(
 )
 
 app.get('/health', (_, res) => {
-  res.json({ status: 'ok' })
+  res.json({ status: 'ok', stripeMode })
 })
 
 app.listen(Number(PORT), () => {

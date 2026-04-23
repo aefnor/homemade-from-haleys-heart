@@ -2,7 +2,10 @@ import Stripe from 'stripe'
 import { describe, expect, it } from 'vitest'
 import { products as appProducts } from '../src/data/products'
 import { buildCheckoutSessionParams } from './checkout.mjs'
-import { products as serverProducts, productsById } from './products.mjs'
+import {
+  getProductsByIdForStripeMode,
+  getProductsForStripeMode,
+} from './products.mjs'
 
 const runStripeIntegration = process.env.RUN_STRIPE_INTEGRATION_TESTS === 'true'
 const describeStripe = runStripeIntegration ? describe : describe.skip
@@ -13,6 +16,8 @@ const stripe =
   runStripeIntegration && stripeSecretKey
     ? new Stripe(stripeSecretKey)
     : null
+const serverProducts = getProductsForStripeMode('test')
+const productsById = getProductsByIdForStripeMode('test')
 
 const stripeNameAliases = new Map([
   ['Traditional Sourdough Bread', ['Traditional Loaf']],

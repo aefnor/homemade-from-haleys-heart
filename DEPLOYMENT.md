@@ -25,16 +25,20 @@ Frontend:
 Backend:
 
 - `STRIPE_SECRET_KEY`
+- `STRIPE_MODE` (`test` or `live`)
 - `STRIPE_WEBHOOK_SECRET`
 - `CLIENT_ORIGIN`
 - `STRIPE_SUCCESS_URL`
 - `STRIPE_CANCEL_URL`
 - `PORT`
+- `STRIPE_LIVE_PRICE_ID_<product id>` for every checkout-enabled product in live mode
 
 ## Stripe Setup
 
 - Create live-mode products/prices matching the checkout-enabled catalog.
 - Update server Stripe price ids when moving from test mode to live mode.
+- For Vercel production, set `STRIPE_MODE=live` and provide each live price id
+  as `STRIPE_LIVE_PRICE_ID_<product id>`.
 - Keep products without Stripe prices, such as `Custom Loaf`, contact-only.
 - Enable Stripe customer receipts.
 - Make sure Haley receives Stripe payment notifications.
@@ -53,6 +57,16 @@ For Stripe test-mode verification:
 ```bash
 RUN_STRIPE_INTEGRATION_TESTS=true STRIPE_SECRET_KEY=sk_test_... yarn test:stripe
 ```
+
+## Vercel Setup
+
+- Framework preset: Vite
+- Build command: `yarn build`
+- Output directory: `dist`
+- Install command: `yarn install --frozen-lockfile`
+- API functions live in `/api`.
+- Stripe webhook endpoint: `/api/stripe-webhook`
+- Client-side routes are rewritten to `/index.html` by `vercel.json`.
 
 ## Smoke Test
 
